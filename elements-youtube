@@ -1,0 +1,159 @@
+! ##################################################
+! Youtube solutions - https://www.reddit.com/r/uBlockOrigin/wiki/solutions/youtube/
+! Github solutions - https://github.com/yokoffing/filterlists
+! Hide Shorts
+youtube.com##[is-shorts]
+www.youtube.com###guide [title="Shorts"], .ytd-mini-guide-entry-renderer[title="Shorts"]
+www.youtube.com##ytd-search ytd-video-renderer:has([overlay-style="SHORTS"])
+www.youtube.com##ytd-reel-shelf-renderer
+www.youtube.com##[tab-title="Shorts"]
+www.youtube.com##ytd-browse[page-subtype="subscriptions"] ytd-grid-video-renderer:has([overlay-style="SHORTS"])
+www.youtube.com##ytd-browse[page-subtype="subscriptions"] ytd-video-renderer:has([overlay-style="SHORTS"])
+www.youtube.com##ytd-browse[page-subtype="subscriptions"] ytd-rich-item-renderer:has([overlay-style="SHORTS"])
+www.youtube.com###related ytd-compact-video-renderer:has([overlay-style="SHORTS"])
+m.youtube.com##ytm-pivot-bar-item-renderer:has(>.pivot-shorts)
+m.youtube.com##ytm-reel-shelf-renderer
+m.youtube.com##ytm-rich-section-renderer:has([d^="M17.77,10.32l-1.2"])
+m.youtube.com##ytm-search ytm-video-with-context-renderer:has([data-style="SHORTS"])
+m.youtube.com##[tab-title="Shorts"]
+! YT Search - keep only videos (no shorts), channels and playlists
+youtube.com##ytd-search ytd-item-section-renderer>#contents>:is(:not(ytd-video-renderer,ytd-channel-renderer,ytd-playlist-renderer,yt-lockup-view-model,yt-showing-results-for-renderer,[icon-name="promo-full-height:EMPTY_SEARCH"]),ytd-video-renderer:has([aria-label="Shorts"])),ytd-secondary-search-container-renderer
+! Removes Mixes
+youtube.com##ytd-rich-item-renderer:has([href$="start_radio=1"])
+youtube.com##ytd-compact-radio-renderer
+youtube.com###related yt-lockup-view-model:has([href*="&start_radio=1&"])
+youtube.com##ytd-radio-renderer
+youtube.com##ytd-search yt-lockup-view-model:has([href$="&start_radio=1"][aria-label])
+youtube.com##.ytp-videowall-still[data-is-mix="true"]
+youtube.com##ytd-compact-playlist-renderer:has([title^="YouTube"])
+! YT Live
+www.youtube.com##:is(ytd-rich-item-renderer,ytd-grid-video-renderer,ytd-compact-video-renderer):has(.badge-style-type-live-now-alternate)
+www.youtube.com##:is(ytd-rich-item-renderer,ytd-grid-video-renderer,ytd-compact-video-renderer):has([aria-label~="Streamed"])
+! Hide Videos Below 1K Views
+www.youtube.com##ytd-browse[page-subtype="home"] ytd-rich-item-renderer:has(#video-title-link:not(:is([aria-label*=",0"],[aria-label*=",1"],[aria-label*=",2"],[aria-label*=",3"],[aria-label*=",4"],[aria-label*=",5"],[aria-label*=",6"],[aria-label*=",7"],[aria-label*=",8"],[aria-label*=",9"])))
+www.youtube.com##ytd-compact-video-renderer:has(#video-title:not(:is([aria-label*=",0"],[aria-label*=",1"],[aria-label*=",2"],[aria-label*=",3"],[aria-label*=",4"],[aria-label*=",5"],[aria-label*=",6"],[aria-label*=",7"],[aria-label*=",8"],[aria-label*=",9"])))
+www.youtube.com##.ytp-videowall-still:not(:is([aria-label*=",0"],[aria-label*=",1"],[aria-label*=",2"],[aria-label*=",3"],[aria-label*=",4"],[aria-label*=",5"],[aria-label*=",6"],[aria-label*=",7"],[aria-label*=",8"],[aria-label*=",9"]))
+! Hide Posts
+www.youtube.com##ytd-browse[page-subtype="home"] ytd-rich-section-renderer:has(ytd-rich-item-renderer[is-post])
+www.youtube.com##ytd-browse[page-subtype="home"] ytd-rich-item-renderer[is-post]
+! Move homepage placeholders to the end
+www.youtube.com##ytd-browse[page-subtype="home"] :is(ytd-rich-grid-row, #contents.ytd-rich-grid-row):style(display: contents !important)
+! Video annotations
+/annotations_module.js$script,xhr,important,domain=youtube.com
+! Hide 1080p Premium
+youtube.com##.ytp-quality-menu .ytp-menuitem:has(.ytp-premium-label)
+! Self promotion
+youtube.com##ytd-popup-container > tp-yt-paper-dialog > ytd-mealbar-promo-renderer, ytd-popup-container > tp-yt-paper-dialog > yt-mealbar-promo-renderer:has-text(/Claim Offer|Join now|Not Now|No thanks|YouTube TV|live TV|Live TV|movies|sports|Try it free|unlimited DVR|watch NFL/)
+!hide videos with less than 2000 views on frontpage
+youtube.com##[page-subtype="home"] ytd-rich-item-renderer:has(.inline-metadata-item.ytd-video-meta-block:has-text(/^(\d{1,3} |No |1(\.\d)?K )views?$/))
+!hide "how did you like this video" survey crap on frontpage
+youtube.com##[page-subtype="home"] ytd-rich-section-renderer:has(ytd-inline-survey-renderer)
+!rebuild grid on frontpage
+youtube.com##[page-subtype="home"] ytd-rich-grid-renderer > #contents > ytd-rich-section-renderer
+youtube.com##[page-subtype="home"] ytd-rich-item-renderer[rendered-from-rich-grid][is-in-first-column]:style(margin-left: calc(var(--ytd-rich-grid-item-margin) / 2) !important;)
+!hide fluff in search results ("People also watched", "For you", "Previously watched" etc.)
+youtube.com##ytd-search ytd-shelf-renderer[thumbnail-style]
+!hide videos with less than 2000 views in video sidebar
+youtube.com###columns #secondary ytd-compact-video-renderer:has(.inline-metadata-item.ytd-video-meta-block:has-text(/^(\d{1,3} |No |1(\.\d)?K )views?$/))
+!hide useless buttons below video (Download, Thanks, Clip)
+youtube.com###below ytd-download-button-renderer
+youtube.com###below #flexible-item-buttons > yt-button-view-model:has(button[aria-label="Thanks"])
+youtube.com###below #flexible-item-buttons > yt-button-view-model:has(button[aria-label="Clip"])
+!hide offer buy box
+youtube.com###offer-module:has(#action-buttons > ytd-button-renderer:has-text(/^Buy$/))
+!hide merch shit
+youtube.com###below ytd-merch-shelf-renderer
+!hide Clarify box
+youtube.com###clarify-box
+!hide "Products" button
+www.youtube.com##.ytp-suggested-action
+! Hide the text label of the dislike/share/download/report/save buttons
+www.youtube.com###actions.ytd-watch-metadata button > div[class$="text-content"]:not(:has-text(/[\d]/))
+www.youtube.com###actions.ytd-watch-metadata ytd-button-renderer .yt-spec-button-shape-next .yt-spec-button-shape-next--button-text-content
+www.youtube.com###actions.ytd-watch-metadata ytd-button-renderer .yt-spec-button-shape-next__icon:style(margin-right: -6px !important; margin-left: -6px !important;)
+m.youtube.com##ytm-slim-video-action-bar-renderer button [class*="button-text-content"]:not(:has-text(/\d/))
+m.youtube.com##ytm-slim-video-action-bar-renderer ytm-button-renderer div[class$="icon"]:style(margin-right: -6px !important; margin-left: -6px !important;)
+www.youtube.com###chat:remove()
+www.youtube.com##.ytp-suggested-action-badge-expanded
+youtube.com##.ytp-button.branding-img-container
+youtube.com##.ytp-quality-menu .ytp-premium-label:upward(.ytp-menuitem)
+!#if env_firefox
+www.youtube.com##ytd-app:style(--ytd-app-fullerscreen-scrollbar-width: -1px !important;)
+!#endif
+www.youtube.com##ytd-video-meta-block + ytd-badge-supported-renderer
+www.youtube.com##yt-smartimation > *:not(.smartimation__content)
+||youtube.com/youtubei/v1/updated_metadata
+www.youtube.com###description #info a[href^="/hashtag/"]
+www.youtube.com###super-title
+www.youtube.com##.super-title
+m.youtube.com##.standalone-collection-badge a[href^="/hashtag/"]
+m.youtube.com##ytm-video-description-header-renderer button-view-model a[href^="/hashtag/"]
+www.youtube.com###description .ytd-watch-metadata #items:has(.ytd-video-description-music-section-renderer)
+m.youtube.com##ytm-video-description-music-section-renderer
+! removes annoying youtube homepage bloat
+www.youtube.com###voice-search-button
+www.youtube.com###newness-dot
+www.youtube.com###guide [title="Settings"], .ytd-mini-guide-entry-renderer[title="Settings"]
+www.youtube.com###guide [title="Home"], .ytd-mini-guide-entry-renderer[title="Home"]
+www.youtube.com###guide [title="Shopping"], .ytd-mini-guide-entry-renderer[title="Shopping"]
+www.youtube.com###guide [title="Gaming"], .ytd-mini-guide-entry-renderer[title="Gaming"]
+www.youtube.com###guide [title="Sports"], .ytd-mini-guide-entry-renderer[title="Sports"]
+www.youtube.com###guide [title="Fashion & Beauty"], .ytd-mini-guide-entry-renderer[title="Fashion & Beauty"]
+www.youtube.com###guide [title="Liked videos"], .ytd-mini-guide-entry-renderer[title="Liked videos"]
+www.youtube.com###guide [title="Watch later"], .ytd-mini-guide-entry-renderer[title="Watch Later"]
+www.youtube.com###guide [title="Your videos"], .ytd-mini-guide-entry-renderer[title="Your videos"]
+www.youtube.com###guide [title="Report history"], .ytd-mini-guide-entry-renderer[title="Report history"]
+www.youtube.com###guide [title="Help"], .ytd-mini-guide-entry-renderer[title="Help"]
+www.youtube.com###guide [title="Send feedback"], .ytd-mini-guide-entry-renderer[title="Send Feedback"]
+www.youtube.com###guide [title="Playables"], .ytd-mini-guide-entry-renderer[title="Playables"]
+! www.youtube.com###guide [title="You"], .ytd-mini-guide-entry-renderer[title="You"]
+www.youtube.com###guide [title="Live"], .ytd-mini-guide-entry-renderer[title="Live"]
+www.youtube.com###guide [title="Movies & TV"], .ytd-mini-guide-entry-renderer[title="Movies & TV"]
+www.youtube.com##ytd-guide-entry-renderer:has(yt-formatted-string.title:has-text(YouTube Premium))
+www.youtube.com##ytd-guide-entry-renderer:has(yt-formatted-string.title:has-text(YouTube TV))
+www.youtube.com##ytd-guide-entry-renderer:has(yt-formatted-string.title:has-text(YouTube Studio))
+www.youtube.com##ytd-guide-entry-renderer:has(yt-formatted-string.title:has-text(YouTube Kids))
+www.youtube.com##ytd-guide-entry-renderer:has(yt-formatted-string.title:has-text(Show more))
+www.youtube.com##ytd-guide-entry-renderer:has(yt-formatted-string.title:has-text(Music)):not(:has(yt-formatted-string.title:has-text(YouTube Music)))
+! copyright info
+www.youtube.com###footer > .ytd-guide-renderer.style-scope
+www.youtube.com###copyright > div
+www.youtube.com###copyright
+! useless features
+www.youtube.com##h3.ytd-guide-section-renderer.style-scope > .ytd-guide-section-renderer.style-scope
+www.youtube.com##ytd-feed-filter-chip-bar-renderer:has(:has-text("All"))
+www.youtube.com##ytd-button-renderer.style-scope:has(.yt-spec-touch-feedback-shape__stroke):has(:has-text("Create"))
+! genre buttons yt music
+music.youtube.com##ytmusic-navigation-button-renderer:has(yt-formatted-string:has-text(Family))
+music.youtube.com##ytmusic-navigation-button-renderer:has(yt-formatted-string:has-text(Gospel))
+music.youtube.com##ytmusic-navigation-button-renderer:has(yt-formatted-string:has-text(Arabic))
+music.youtube.com##ytmusic-navigation-button-renderer:has(yt-formatted-string:has-text(African))
+music.youtube.com##ytmusic-navigation-button-renderer:has(yt-formatted-string:has-text(India))
+music.youtube.com##ytmusic-navigation-button-renderer:has(yt-formatted-string:has-text(Pride))
+music.youtube.com##ytmusic-navigation-button-renderer:has(yt-formatted-string:has-text(Cantopop))
+music.youtube.com##ytmusic-navigation-button-renderer:has(yt-formatted-string:has-text(Reggae))
+music.youtube.com##ytmusic-navigation-button-renderer:has(yt-formatted-string:has-text(Americana))
+music.youtube.com##ytmusic-navigation-button-renderer:has(yt-formatted-string:has-text(OPM))
+music.youtube.com##ytmusic-navigation-button-renderer:has(yt-formatted-string:has-text(Blues))
+music.youtube.com##ytmusic-navigation-button-renderer:has(yt-formatted-string:has-text(Brazilian))
+music.youtube.com##ytmusic-navigation-button-renderer:has(yt-formatted-string:has-text(Black Lives Matter))
+music.youtube.com##ytmusic-navigation-button-renderer:has(yt-formatted-string:has-text(Romance))
+! video page
+www.youtube.com##ytd-guide-entry-renderer yt-icon.guide-entry-badge
+www.youtube.com##button-view-model:has(button[aria-label="Share"])
+www.youtube.com##dislike-button-view-model
+www.youtube.com##ytd-comment-simplebox-renderer
+www.youtube.com##ytd-comment-view-model #author-thumbnail
+www.youtube.com##ytd-toggle-button-renderer#dislike-button
+www.youtube.com##ytd-button-renderer#reply-button-end
+www.youtube.com##ytd-comment-replies-renderer
+www.youtube.com##ytd-comment-view-model #header-author
+www.youtube.com##ytd-comments-header-renderer #sort-menu
+www.youtube.com##ytd-comments-header-renderer yt-formatted-string.count-text > span:first-of-type
+www.youtube.com##button[aria-label*="like this video"] .yt-spec-button-shape-next__button-text-content
+www.youtube.com##yt-related-chip-cloud-renderer
+www.youtube.com##div#sponsor-button
+
+
+!www.youtube.com##ytd-grid-video-renderer:has(#video-title-link[aria-label*="years"])
+!www.youtube.com##ytd-rich-item-renderer:has(#video-title-link[aria-label*="years"])
